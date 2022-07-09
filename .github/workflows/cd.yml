@@ -1,0 +1,41 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [ main, dev ]
+    
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build --if-present
+      
+      - name: Deploy staging to Heroku 
+        if: github.ref == 'refs/heads/dev' # if dev branch
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: 'corelab-api-challenge-dev'
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+      
+      - name: Deploy production to Heroku 
+        if: github.ref == 'refs/heads/main' # if main branch
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: 'corelab-api-challenge-prod'
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
