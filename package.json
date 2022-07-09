@@ -21,7 +21,10 @@
     ],
     "rules": {
       "prettier/prettier": [
-        "error"
+        "error",
+        {
+          "endOfLine": "auto"
+        }
       ]
     }
   },
@@ -36,7 +39,8 @@
     "quoteProps": "consistent",
     "bracketSpacing": true,
     "arrowParens": "always",
-    "printWidth": 100
+    "printWidth": 80,
+    "tabWidth": 2
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.6.2",
