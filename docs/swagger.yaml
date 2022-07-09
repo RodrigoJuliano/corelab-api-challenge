@@ -1,0 +1,196 @@
+swagger: "2.0"
+info:
+  description: "API specification for the corelab challenge. A CRUD for vehicles."
+  version: "1.0.0"
+  title: "Corelab challenge API"
+host: "localhost:3333"
+basePath: "/v1"
+tags:
+- name: "vehicles"
+  description: "Everything about the Vehicles"
+schemes:
+- "https"
+- "http"
+paths:
+  /vehicles:
+    get:
+      tags:
+      - "vehicles"
+      summary: "Search Vehicles"
+      description: "Get the stored vehicles. It is possible to filter by a search term or by attributes, in addition to limiting the amount of data desired."
+      operationId: "searchVehicle"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created user object"
+        required: false
+        schema:
+          $ref: "#/definitions/Search"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Vehicle"
+        "400":
+          description: "Invalid parameters"
+    post:
+      tags:
+      - "vehicles"
+      summary: "Add a new vehicle to the store"
+      description: "Add a new vehicle providing its attributes"
+      operationId: "addVehicle"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Vehicle object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Vehicle"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Vehicle"
+        "405":
+          description: "Invalid input"
+  /vehicles/{vehicleId}:
+    get:
+      tags:
+      - "vehicles"
+      summary: "Find a vehicle by ID"
+      description: "Returns a single vehicle with the given id"
+      operationId: "getVehicleById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "vehicleId"
+        in: "path"
+        description: "ID of vehicle to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Vehicle"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Vehicle not found"
+    post:
+      tags:
+      - "vehicles"
+      summary: "Updates a vehicle in the store"
+      description: "Updates a vehicle's attributes by providing the new values"
+      operationId: "updateVehicle"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "vehicleId"
+        in: "path"
+        description: "ID of vehicle that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "body"
+        in: "body"
+        description: "Updated data of the vehicle"
+        required: true
+        schema:
+          $ref: "#/definitions/Vehicle"
+      responses:
+        "200":
+          description: "Successful operation"
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "vehicles"
+      summary: "Deletes a vehicle from the store"
+      description: "Deletes the vehicle with the given id"
+      operationId: "deleteVehicle"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "vehicleId"
+        in: "path"
+        description: "Vehicle id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Successful operation"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Vehicle not found"
+definitions:
+  Vehicle:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      plate:
+        type: "string"
+      name:
+        type: "string"
+      year:
+        type: "integer"
+        format: "int32"
+      color:
+        type: "string"
+        description: "Color in Hex code"
+      price:
+        type: "number"
+        format: "float"
+      brand:
+        type: "string"
+    xml:
+      name: "Order"
+  Search:
+    type: "object"
+    properties:
+      term:
+        type: "string"
+      quantityPerPage:
+        type: "integer"
+        format: "int32"
+      page:
+        type: "integer"
+        format: "int32"
+      filters:
+        $ref: "#/definitions/Filters"
+    xml:
+      name: "Search"
+  Filters:
+    type: "object"
+    properties:
+      brand:
+        type: "string"
+      color:
+        type: "string"
+      year:
+        type: "integer"
+        format: "int32"
+      minPrice:
+        type : "number"
+        format: "float"
+      maxPrice:
+        type: "number"
+        format: "float"
+    xml:
+      name: "Filters"
+ 
