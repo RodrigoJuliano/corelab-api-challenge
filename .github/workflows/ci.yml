@@ -8,12 +8,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      mongodb:
-        image: mongo
-        ports:
-        - 27017:27017
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -35,6 +29,3 @@ jobs:
 
       - name: Run tests
         run: npm run test
-        env:
-          MONGODB_HOST: localhost
-          MONGODB_PORT: 27017
