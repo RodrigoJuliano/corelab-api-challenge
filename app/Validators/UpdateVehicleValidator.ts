@@ -1,7 +1,7 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class CreateVehicleValidator {
+export default class UpdateVehicleValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   /*
@@ -24,22 +24,29 @@ export default class CreateVehicleValidator {
    *    ```
    */
   public schema = schema.create({
-    name: schema.string([rules.maxLength(128), rules.minLength(1)]),
+    // With the optional fields it allows to update a partion
+    // of a resource without allowing to set the fields to null.
+    name: schema.string.optional([rules.maxLength(128), rules.minLength(1)]),
     description: schema.string.optional([rules.maxLength(256)]),
-    plate: schema.string([
+    plate: schema.string.optional([
       rules.maxLength(7),
       rules.minLength(7),
       rules.unique({
         table: 'vehicles',
         column: 'plate',
         caseInsensitive: true,
+        // Don't compare with the old version of the data
+        // (The new plate can be equals the new one)
+        whereNot: {
+          id: this.ctx.params.id,
+        },
       }),
     ]),
     is_favorite: schema.boolean.optional(),
-    brand: schema.string([rules.minLength(1), rules.maxLength(128)]),
-    year: schema.number(),
-    color: schema.string([rules.maxLength(7), rules.minLength(7)]),
-    price: schema.number([rules.unsigned()]),
+    brand: schema.string.optional([rules.minLength(1), rules.maxLength(128)]),
+    year: schema.number.optional(),
+    color: schema.string.optional([rules.maxLength(7), rules.minLength(7)]),
+    price: schema.number.optional([rules.unsigned()]),
   })
 
   /**
@@ -53,5 +60,5 @@ export default class CreateVehicleValidator {
    * }
    *
    */
-  // public messages = {}
+  public messages = {}
 }

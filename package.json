@@ -9,7 +9,9 @@
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
     "test": "node ace test",
-    "test:watch": "npm test --watch"
+    "test:watch": "npm test --watch",
+    "db:migration": "node ace migration:run",
+    "db:seed" : "node ace db:seed"
   },
   "eslintConfig": {
     "extends": [

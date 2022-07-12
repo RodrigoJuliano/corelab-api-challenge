@@ -17,7 +17,7 @@ test.group('Search vehicle', (group) => {
       {
         name: 'First Vehicle',
         description: 'This is a description of first vehicle',
-        plate: 'DDT-0012',
+        plate: 'DDT0012',
         is_favorite: 0, // sqlite uses integer to represent booleans
         year: 2018,
         color: '#ff00ff',
@@ -26,7 +26,7 @@ test.group('Search vehicle', (group) => {
       {
         name: 'Second Vehicle',
         description: 'This is a description of second vehicle',
-        plate: 'DDT-0013',
+        plate: 'DDT0013',
         is_favorite: 1,
         brand: 'Second Brand',
         year: 2019,
