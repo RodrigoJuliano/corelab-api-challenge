@@ -1,4 +1,4 @@
-import vehicle from 'App/Models/vehicle'
+import vehicle from 'App/Models/Vehicle'
 import Factory from '@ioc:Adonis/Lucid/Factory'
 
 const colors = [
