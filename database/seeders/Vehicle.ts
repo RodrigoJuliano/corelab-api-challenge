@@ -1,6 +1,8 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Vehicle from 'App/Models/Vehicle'
 
+// import Factory from '@ioc:Adonis/Lucid/Factory'
+
 export default class extends BaseSeeder {
   public static developmentOnly = true
 
@@ -9,7 +11,7 @@ export default class extends BaseSeeder {
       {
         name: 'First Vehicle',
         description: 'This is a description of first vehicle',
-        plate: 'DDT-0012',
+        plate: 'DDT0012',
         is_favorite: false,
         brand: 'First Brand',
         year: 2018,
@@ -19,7 +21,7 @@ export default class extends BaseSeeder {
       {
         name: 'Second Vehicle',
         description: 'This is a description of second vehicle',
-        plate: 'DDT-0013',
+        plate: 'DDT0013',
         is_favorite: true,
         brand: 'Second Brand',
         year: 2019,
