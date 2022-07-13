@@ -28,4 +28,9 @@ export default class VehiclesController {
 
     return vehicle
   }
+
+  public async delete({ params }: HttpContextContract) {
+    const vehicle = await VehicleM.findOrFail(params.id)
+    vehicle.delete()
+  }
 }
