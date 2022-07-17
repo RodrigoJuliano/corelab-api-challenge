@@ -11,7 +11,8 @@
     "test": "node ace test",
     "test:watch": "npm test --watch",
     "db:migration": "node ace migration:run",
-    "db:seed" : "node ace db:seed"
+    "db:seed" : "node ace db:seed",
+    "heroku-postbuild" : "npm run db:migration"
   },
   "eslintConfig": {
     "extends": [
