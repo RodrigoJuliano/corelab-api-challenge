@@ -10,8 +10,8 @@ export default class VehiclesController {
 
     const vehicles = await VehicleM.query()
       // Search term
-      .if(payload.term, (query) => {
-        const terms = payload.term?.split(' ')!
+      .if(payload.searchString, (query) => {
+        const terms = payload.searchString?.split(' ')!
         // Search for the first term in each of the given attributes
         query.whereLike('name', `%${terms[0]}%`)
         query.orWhereLike('brand', `%${terms[0]}%`)

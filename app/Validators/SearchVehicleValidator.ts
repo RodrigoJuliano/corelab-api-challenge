@@ -31,7 +31,7 @@ export default class SearchVehicleValidator {
       rules.range(0, Number.MAX_SAFE_INTEGER),
       rules.requiredIfExists('quantityPerPage'),
     ]),
-    term: schema.string.optional(),
+    searchString: schema.string.optional(),
     filters_brand: schema.string.optional(),
     filters_color: schema.string.optional(),
     filters_year: schema.number.optional(),
