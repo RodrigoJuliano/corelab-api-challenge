@@ -106,3 +106,7 @@ dist
 # Temporary files
 tmp/*
 !tmp/.gitkeep
+
+# Build files
+
+build/
